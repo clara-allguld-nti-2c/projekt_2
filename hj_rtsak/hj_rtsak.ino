@@ -11,7 +11,7 @@ const int Buzzer = 3;
 bool BuzzerOn = false;
             
 
-//variabler
+//variabler, sätter värden i förhand för att enklare användas senare i koden
 int sX = 0;
 int sY = 60;
 int x = 0;
@@ -23,7 +23,7 @@ int count = 0;
 int Bpm = 0;
 int ledPin = 2;
 
-void setup() {
+void setup() { // engångs skript so  kommer gå en gång
   Serial.begin(9600);
   srituhobby.begin(SSD1306_SWITCHCAPVCC, 0x3C); //adress
   delay(1000);
@@ -31,7 +31,7 @@ void setup() {
   pinMode(Buzzer, OUTPUT);
 }
 
-void loop() {
+void loop() { //ett skript som kan gå om o om igen i koden (loop) när matad med variabler
   Svalue = analogRead(sensor);
   Serial.println(Svalue);
   value = map(Svalue, 0, 1024, 0, 45);
@@ -51,14 +51,14 @@ void loop() {
     noTone(Buzzer);
     digitalWrite(ledPin, LOW);
   }
-  srituhobby.drawLine(sX, sY, x, y, WHITE);
+  srituhobby.drawLine(sX, sY, x, y, WHITE); //ritar grafen som används för att mäta pulsen
   sX = x;
   sY = y;
   x ++;
 
   BPM();
 
-  srituhobby.setCursor(0, 0);
+  srituhobby.setCursor(0, 0); //innehåller information för displayen
   srituhobby.setTextSize(2);
   srituhobby.setTextColor(SSD1306_WHITE);
   srituhobby.print("BPM<3 :");
@@ -66,7 +66,7 @@ void loop() {
 
 }
 
-void BPM() {
+void BPM() { //uträkningar för pulsen
 
   if (Svalue > Highpulse) {
     Stime = millis() - Ltime;
